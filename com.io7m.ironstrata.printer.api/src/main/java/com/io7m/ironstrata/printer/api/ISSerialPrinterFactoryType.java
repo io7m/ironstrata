@@ -16,6 +16,8 @@
 
 package com.io7m.ironstrata.printer.api;
 
+import com.io7m.ironstrata.serialport.api.ISSerialPortType;
+
 /**
  * A factory used to instantiate serial port printers.
  */
@@ -34,5 +36,21 @@ public interface ISSerialPrinterFactoryType
 
   ISSerialPrinterType open(
     ISSerialPrinterConfiguration configuration)
+    throws ISPrinterException;
+
+  /**
+   * Open a printer using the given configuration and serial port.
+   *
+   * @param configuration A configuration
+   * @param port          The serial port
+   *
+   * @return An open printer
+   *
+   * @throws ISPrinterException On errors
+   */
+
+  ISSerialPrinterType open(
+    ISSerialPrinterConfiguration configuration,
+    ISSerialPortType port)
     throws ISPrinterException;
 }

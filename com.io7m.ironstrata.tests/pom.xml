@@ -38,6 +38,11 @@
       <artifactId>com.io7m.ironstrata.serialport.plain</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>com.io7m.ironstrata.serialport.logging</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>ch.qos.logback</groupId>

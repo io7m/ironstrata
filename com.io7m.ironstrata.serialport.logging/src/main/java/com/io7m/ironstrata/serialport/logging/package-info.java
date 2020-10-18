@@ -14,50 +14,13 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.io7m.ironstrata.serialport.api;
-
-import io.reactivex.rxjava3.core.Observable;
-
-import java.io.Closeable;
-import java.io.IOException;
-
 /**
- * A serial port.
+ * 3D printer control suite (Serial port logging)
  */
 
-public interface ISSerialPortType extends Closeable
-{
-  /**
-   * @return An observable stream of the reads from the port
-   */
+@Export
+@Version("1.0.0")
+package com.io7m.ironstrata.serialport.logging;
 
-  Observable<String> reads();
-
-  /**
-   * @return An observable stream of the writes from the port
-   */
-
-  Observable<String> writes();
-
-  /**
-   * Read a line of text from the port.
-   *
-   * @return A line
-   *
-   * @throws IOException On errors
-   */
-
-  String readLine()
-    throws IOException;
-
-  /**
-   * Write a line of text to the port.
-   *
-   * @param text The text
-   *
-   * @throws IOException On errors
-   */
-
-  void writeLine(String text)
-    throws IOException;
-}
+import org.osgi.annotation.bundle.Export;
+import org.osgi.annotation.versioning.Version;

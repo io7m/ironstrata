@@ -28,6 +28,7 @@
     <module>com.io7m.ironstrata.serialport.api</module>
     <module>com.io7m.ironstrata.serialport.plain</module>
     <module>com.io7m.ironstrata.printer.vanilla</module>
+    <module>com.io7m.ironstrata.serialport.logging</module>
   </modules>
 
   <properties>

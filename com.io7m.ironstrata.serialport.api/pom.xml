@@ -20,6 +20,10 @@
 
   <dependencies>
     <dependency>
+      <groupId>io.reactivex.rxjava3</groupId>
+      <artifactId>rxjava</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.io7m.jaffirm</groupId>
       <artifactId>com.io7m.jaffirm.core</artifactId>
     </dependency>

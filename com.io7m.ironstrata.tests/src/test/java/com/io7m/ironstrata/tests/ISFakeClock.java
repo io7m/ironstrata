@@ -39,7 +39,9 @@ public final class ISFakeClock extends Clock
   public void tick(
     final long seconds)
   {
-    final Instant next = this.timeNow.plusSeconds(seconds);
+    final Instant next =
+      this.timeNow.plusSeconds(seconds).plusNanos(100L);
+
     LOG.debug("tick {} -> {}", this.timeNow, next);
     this.timeNow = next;
   }

@@ -99,6 +99,17 @@ public final class ISSerialPrinterFactory
       throw new ISPrinterExceptionIO(e);
     }
 
+    return this.open(configuration, port);
+  }
+
+  @Override
+  public ISSerialPrinterType open(
+    final ISSerialPrinterConfiguration configuration,
+    final ISSerialPortType port)
+  {
+    Objects.requireNonNull(configuration, "configuration");
+    Objects.requireNonNull(port, "port");
+
     return ISSerialPrinter.create(
       this.messages,
       configuration,

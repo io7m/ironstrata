@@ -21,8 +21,14 @@ import com.io7m.ironstrata.printer.api.ISPrinterEventType;
 import com.io7m.ironstrata.printer.api.ISSerialPrinterConfiguration;
 import com.io7m.ironstrata.printer.vanilla.ISSerialPrinterFactory;
 import com.io7m.ironstrata.serialport.api.ISSerialPortConfiguration;
+import com.io7m.ironstrata.serialport.logging.ISSerialPortLogger;
+import com.io7m.ironstrata.serialport.plain.ISerialPortsPlain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.BufferedWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public final class Example
 {
@@ -38,7 +44,10 @@ public final class Example
     final String[] args)
     throws Exception
   {
-    final var factory = new ISSerialPrinterFactory();
+    final var printerFactory =
+      new ISSerialPrinterFactory();
+    final var portFactory =
+      new ISerialPortsPlain();
 
     final var portConfiguration =
       ISSerialPortConfiguration.builder()
@@ -51,22 +60,31 @@ public final class Example
         .setPort(portConfiguration)
         .build();
 
-    try (var printer = factory.open(configuration)) {
-      final var subscription =
-        printer.events().subscribe(Example::onEvent);
-      final var commands =
-        printer.commandQueue(ISPrinterCommandQueueGCodeType.class);
+    try (var port = portFactory.open(portConfiguration)) {
+      final var logRead =
+        Files.newBufferedWriter(Path.of("/tmp/reads.log"));
+      final var logWrite =
+        Files.newBufferedWriter(Path.of("/tmp/writes.log"));
+      final var logger =
+        new ISSerialPortLogger(port, logRead, logWrite);
 
-      try {
-        for (int time = 0; time < Integer.MAX_VALUE; ++time) {
-          try {
-            Thread.sleep(1000L);
-          } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
+      try (var printer = printerFactory.open(configuration, port)) {
+        final var subscription =
+          printer.events().subscribe(Example::onEvent);
+        final var commands =
+          printer.commandQueue(ISPrinterCommandQueueGCodeType.class);
+
+        try {
+          for (int time = 0; time < Integer.MAX_VALUE; ++time) {
+            try {
+              Thread.sleep(1000L);
+            } catch (final InterruptedException e) {
+              Thread.currentThread().interrupt();
+            }
           }
+        } finally {
+          subscription.dispose();
         }
-      } finally {
-        subscription.dispose();
       }
     }
   }

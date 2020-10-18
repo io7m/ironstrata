@@ -17,6 +17,8 @@
 package com.io7m.ironstrata.serialport.plain.internal;
 
 import com.io7m.ironstrata.serialport.api.ISSerialPortType;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.subjects.PublishSubject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,12 +38,28 @@ public final class ISSerialPort implements ISSerialPortType
 
   private final FileChannel channel;
   private final BufferedReader reader;
+  private final PublishSubject<String> reads;
+  private final PublishSubject<String> writes;
 
   public ISSerialPort(
     final FileChannel inChannel)
   {
     this.channel = Objects.requireNonNull(inChannel, "channel");
     this.reader = new BufferedReader(Channels.newReader(inChannel, US_ASCII));
+    this.reads = PublishSubject.create();
+    this.writes = PublishSubject.create();
+  }
+
+  @Override
+  public Observable<String> reads()
+  {
+    return this.reads;
+  }
+
+  @Override
+  public Observable<String> writes()
+  {
+    return this.writes;
   }
 
   @Override
@@ -49,6 +67,7 @@ public final class ISSerialPort implements ISSerialPortType
     throws IOException
   {
     pause();
+
     final var line = this.reader.readLine();
     if ("\0".equals(line)) {
       return null;
@@ -57,7 +76,9 @@ public final class ISSerialPort implements ISSerialPortType
       return null;
     }
 
-    LOG.trace("<<< {}", line);
+    final var trimmed = line.stripTrailing();
+    LOG.trace("<<< {}", trimmed);
+    this.reads.onNext(trimmed);
     return line;
   }
 
@@ -76,16 +97,21 @@ public final class ISSerialPort implements ISSerialPortType
     throws IOException
   {
     pause();
-    LOG.trace(">>> {}", text);
-    final var data = (text + '\n').getBytes(US_ASCII);
+
+    final var trimmed = text.stripTrailing();
+    LOG.trace(">>> {}", trimmed);
+    final var data = (trimmed + '\n').getBytes(US_ASCII);
     final var buffer = ByteBuffer.wrap(data);
     this.channel.write(buffer);
+    this.writes.onNext(trimmed);
   }
 
   @Override
   public void close()
     throws IOException
   {
+    this.reads.onComplete();
+    this.writes.onComplete();
     this.channel.close();
   }
 }

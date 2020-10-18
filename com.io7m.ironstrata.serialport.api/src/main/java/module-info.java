@@ -25,6 +25,7 @@ module com.io7m.ironstrata.serialport.api
   requires static org.osgi.annotation.bundle;
   requires static org.osgi.annotation.versioning;
 
+  requires transitive io.reactivex.rxjava3;
   requires com.io7m.jaffirm.core;
 
   exports com.io7m.ironstrata.serialport.api;
