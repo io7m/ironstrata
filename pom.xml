@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.io7m.primogenitor</groupId>
+    <artifactId>com.io7m.primogenitor.full</artifactId>
+    <version>6.0.0</version>
+  </parent>
+
+  <groupId>com.io7m.ironstrata</groupId>
+  <artifactId>com.io7m.ironstrata</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <packaging>pom</packaging>
+  <name>com.io7m.ironstrata</name>
+  <description>3D printer control suite</description>
+  <url>http://github.com/io7m/ironstrata</url>
+
+  <modules>
+    <module>com.io7m.ironstrata.tests</module>
+    <module>com.io7m.ironstrata.printer.api</module>
+    <module>com.io7m.ironstrata.strings.api</module>
+    <module>com.io7m.ironstrata.serialport.api</module>
+    <module>com.io7m.ironstrata.serialport.plain</module>
+    <module>com.io7m.ironstrata.printer.vanilla</module>
+  </modules>
+
+  <properties>
+    <io7m.api.previousVersion>0.0.1-SNAPSHOT</io7m.api.previousVersion>
+    <junit.version>5.7.0</junit.version>
+    <org.immutables.version>2.8.8</org.immutables.version>
+  </properties>
+
+  <licenses>
+    <license>
+      <name>ISC License</name>
+      <url>http://io7m.com/license/isc.txt</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/io7m/ironstrata</url>
+    <connection>scm:git:https://github.com/io7m/ironstrata</connection>
+    <developerConnection>scm:git:https://github.com/io7m/ironstrata</developerConnection>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>io7m</id>
+      <name>io7m</name>
+      <email>code@io7m.com</email>
+      <url>http://io7m.com</url>
+    </developer>
+  </developers>
+
+  <issueManagement>
+    <url>http://github.com/io7m/ironstrata/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+
+  <distributionManagement>
+    <site>
+      <id>io7m.com</id>
+      <name>io7m.com</name>
+      <url>https://www.io7m.com/software/ironstrata</url>
+    </site>
+    <repository>
+      <id>sonatype-nexus-staging</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
+  <ciManagement>
+    <system>GitHub Actions</system>
+    <url>https://github.com/ironstrata/actions</url>
+  </ciManagement>
+
+  <prerequisites>
+    <maven>3.0.4</maven>
+  </prerequisites>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.3.0-alpha5</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>2.0.0-alpha1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.immutables</groupId>
+        <artifactId>value</artifactId>
+        <version>${org.immutables.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.io7m.immutables.style</groupId>
+        <artifactId>com.io7m.immutables.style</artifactId>
+        <version>0.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.io7m.jaffirm</groupId>
+        <artifactId>com.io7m.jaffirm.core</artifactId>
+        <version>3.0.4</version>
+      </dependency>
+      <dependency>
+        <groupId>io.reactivex.rxjava3</groupId>
+        <artifactId>rxjava</artifactId>
+        <version>3.0.6</version>
+      </dependency>
+      <dependency>
+        <groupId>it.unimi.dsi</groupId>
+        <artifactId>fastutil</artifactId>
+        <version>8.3.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.io7m.jfsm</groupId>
+        <artifactId>com.io7m.jfsm.core</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.15</version>
+      </dependency>
+      <dependency>
+        <groupId>com.io7m.junreachable</groupId>
+        <artifactId>com.io7m.junreachable.core</artifactId>
+        <version>3.0.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.annotation.versioning</artifactId>
+        <version>1.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.annotation.bundle</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- Configure compiler -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <annotationProcessorPaths>
+              <dependency>
+                <groupId>org.immutables</groupId>
+                <artifactId>value</artifactId>
+                <version>${org.immutables.version}</version>
+              </dependency>
+            </annotationProcessorPaths>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+</project>

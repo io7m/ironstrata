@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>com.io7m.ironstrata</artifactId>
+    <groupId>com.io7m.ironstrata</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>com.io7m.ironstrata.serialport.plain</artifactId>
+
+  <name>com.io7m.ironstrata.serialport.plain</name>
+  <description>3D printer control suite (Serial port plain implementation)</description>
+  <url>http://github.com/io7m/ironstrata</url>
+
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>com.io7m.ironstrata.serialport.api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.annotation.bundle</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.annotation.versioning</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+</project>
